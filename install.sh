@@ -85,10 +85,6 @@ deploy_core() {
     create_symlink "$CORE_DIR/waybar"     "$HOME/.config/waybar"
     create_symlink "$CORE_DIR/wofi"       "$HOME/.config/wofi"
 
-    # starship is a file, not a directory
-    create_symlink "$CORE_DIR/starship/starship.toml" \
-                   "$HOME/.config/starship.toml"
-
     # zsh config
     create_symlink "$CORE_DIR/zsh/.zshrc" "$HOME/.zshrc"
 
