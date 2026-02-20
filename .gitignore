@@ -1,2 +1,2 @@
-dev/ssh/.ssh/*
-!dev/ssh/.ssh/config
+home/ssh/.ssh/*
+!home/ssh/.ssh/config
