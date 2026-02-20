@@ -1,0 +1,58 @@
+* {
+  font-family: "UbuntuMono Nerd Font";
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: 0px;
+  min-height: 0px;
+  margin-top: 3px;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0);
+  color: #E0E0E0;
+}
+
+#waybar {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#clock,
+#network,
+#bluetooth,
+#pulseaudio {
+  min-width: 12px;
+  margin: 0 10px;
+}
+
+#workspaces button {
+  all: initial;
+  padding: 0 10px;
+  margin: 0 3px;
+  min-width: 12px;
+  color: #404040;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  color: #000000;
+  font-weight: bold;
+}
+
+#workspaces button.visible {
+  color: #FEFEFE;
+}
+
+.modules-left {
+  margin-left: 8px;
+}
+
+.modules-right {
+  margin-right: 8px;
+}
+
+.tooltip {
+  padding: 2px;
+}
+
