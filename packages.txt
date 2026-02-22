@@ -9,6 +9,7 @@ discord
 efibootmgr
 fastfetch
 firefox
+fzf
 git
 grub
 hyprland
