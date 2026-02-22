@@ -1,127 +1,140 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
-IFS=$'\n\t'
 
-PROJECT_NAME="arch-monochrome"
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-PACKAGES_FILE="$SCRIPT_DIR/packages.txt"
-CORE_DIR="$SCRIPT_DIR/core"
-UTILS_DIR="$SCRIPT_DIR/utils"
+### ==========================================
+### PATHS
+### ==========================================
 
-BACKUP_DIR="$HOME/.config/${PROJECT_NAME}_backup_$(date +%Y%m%d_%H%M%S)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-log() {
-    printf "[%s] %s\n" "$(date +'%H:%M:%S')" "$1"
-}
+CONFIG_SOURCE="$DOTFILES_DIR/config"
+CONFIG_TARGET="$HOME/.config"
 
-error() {
-    printf "[ERROR] %s\n" "$1" >&2
-    exit 1
-}
+HOME_SOURCE="$DOTFILES_DIR/home"
+HOME_TARGET="$HOME"
 
-require_command() {
-    command -v "$1" &>/dev/null || error "Required command '$1' not found."
-}
+WALLPAPER_SOURCE="$DOTFILES_DIR/wallpapers"
+WALLPAPER_TARGET="$HOME/wallpapers"
 
-check_arch() {
-    [[ -f /etc/arch-release ]] || \
-        error "This installer is intended for Arch Linux or Arch-based systems only."
-}
+PACKAGES_FILE="$DOTFILES_DIR/packages.txt"
+
+BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+
+### ==========================================
+### LOGGING
+### ==========================================
+
+log() { echo -e "\033[1;32m[INFO]\033[0m $1"; }
+warn() { echo -e "\033[1;33m[WARN]\033[0m $1"; }
+
+### ==========================================
+### PACKAGE INSTALL
+### ==========================================
 
 install_packages() {
+  if [[ -f "$PACKAGES_FILE" ]]; then
     log "Installing packages..."
-
-    require_command pacman
-    [[ -f "$PACKAGES_FILE" ]] || error "packages.txt not found."
-
-    sudo pacman -Syu --needed --noconfirm - < "$PACKAGES_FILE"
-
-    log "Package installation complete."
+    sudo pacman -S --needed --noconfirm $(grep -v '^#' "$PACKAGES_FILE")
+  else
+    warn "packages.txt not found, skipping."
+  fi
 }
 
-backup_if_exists() {
-    local target="$1"
+### ==========================================
+### DIRECTORIES
+### ==========================================
 
-    if [[ -e "$target" && ! -L "$target" ]]; then
-        mkdir -p "$BACKUP_DIR"
-        log "Backing up $target → $BACKUP_DIR"
-        mv "$target" "$BACKUP_DIR/"
-    fi
+create_user_dirs() {
+  log "Creating user directories..."
+  mkdir -p "$HOME/downloads" "$HOME/records" "$HOME/screenshots"
+  mkdir -p "$CONFIG_TARGET"
+}
+
+### ==========================================
+### SAFE SYMLINK
+### ==========================================
+
+backup_if_exists() {
+  local target="$1"
+  if [[ -e "$target" && ! -L "$target" ]]; then
+    log "Backing up $target"
+    mkdir -p "$BACKUP_DIR"
+    mv "$target" "$BACKUP_DIR/"
+  fi
 }
 
 create_symlink() {
-    local source="$1"
-    local target="$2"
+  local source="$1"
+  local target="$2"
 
-    if [[ -L "$target" ]]; then
-        if [[ "$(readlink -f "$target")" == "$(readlink -f "$source")" ]]; then
-            log "Symlink already correct: $target"
-            return
-        else
-            log "Updating symlink: $target"
-            rm "$target"
-        fi
-    elif [[ -e "$target" ]]; then
-        backup_if_exists "$target"
+  if [[ -L "$target" ]]; then
+    if [[ "$(readlink "$target")" == "$source" ]]; then
+      log "$target already linked correctly"
+      return
+    else
+      rm "$target"
     fi
+  fi
 
-    ln -s "$source" "$target"
-    log "Linked $target → $source"
+  backup_if_exists "$target"
+
+  ln -s "$source" "$target"
+  log "Linked $target → $source"
 }
 
-prepare_home_dirs() {
-    log "Preparing home directories..."
-    mkdir -p "$HOME/.config"
-    mkdir -p "$HOME/screenshots"
+### ==========================================
+### LINK CONFIG (.config)
+### ==========================================
+
+link_config() {
+  log "Linking .config directory..."
+  for item in "$CONFIG_SOURCE"/*; do
+    name="$(basename "$item")"
+    create_symlink "$item" "$CONFIG_TARGET/$name"
+  done
 }
 
-deploy_core() {
-    log "Deploying core configs..."
+### ==========================================
+### LINK HOME DOTFILES
+### ==========================================
 
-    # Explicit mappings (no magic)
-    create_symlink "$CORE_DIR/hypr"       "$HOME/.config/hypr"
-    create_symlink "$CORE_DIR/alacritty"  "$HOME/.config/alacritty"
-    create_symlink "$CORE_DIR/waybar"     "$HOME/.config/waybar"
-    create_symlink "$CORE_DIR/wofi"       "$HOME/.config/wofi"
+link_home() {
+  log "Linking home dotfiles..."
 
-    # zsh config
-    create_symlink "$CORE_DIR/zsh/.zshrc" "$HOME/.zshrc"
+  # gitconfig
+  create_symlink "$HOME_SOURCE/git/.gitconfig" "$HOME_TARGET/.gitconfig"
 
-    # wallpapers go directly into $HOME
-    create_symlink "$CORE_DIR/wallpapers" "$HOME/wallpapers"
+  # zshrc
+  create_symlink "$HOME_SOURCE/zsh/.zshrc" "$HOME_TARGET/.zshrc"
+
+  # ssh directory
+  create_symlink "$HOME_SOURCE/ssh/.ssh" "$HOME_TARGET/.ssh"
+
+  # secure ssh permissions
+  chmod 700 "$HOME_TARGET/.ssh"
+  chmod 600 "$HOME_TARGET/.ssh/"*
 }
 
-deploy_utils() {
-    log "Deploying utility configs..."
+### ==========================================
+### LINK WALLPAPERS
+### ==========================================
 
-    create_symlink "$UTILS_DIR/btop"      "$HOME/.config/btop"
-    create_symlink "$UTILS_DIR/fastfetch" "$HOME/.config/fastfetch"
+link_wallpapers() {
+  log "Linking wallpapers..."
+  create_symlink "$WALLPAPER_SOURCE" "$WALLPAPER_TARGET"
 }
 
-post_install() {
-    log "Running post-install steps..."
-
-    require_command zsh
-
-    if [[ "$SHELL" != "$(command -v zsh)" ]]; then
-        log "Changing default shell to zsh..."
-        chsh -s "$(command -v zsh)"
-    fi
-
-    log "Installation finished successfully."
-}
+### ==========================================
+### MAIN
+### ==========================================
 
 main() {
-    check_arch
-    install_packages
-    prepare_home_dirs
-    deploy_core
-    deploy_utils
-    post_install
-
-    log "Backup directory (if used): $BACKUP_DIR"
+  install_packages
+  create_user_dirs
+  link_config
+  link_home
+  link_wallpapers
+  log "All done."
 }
 
 main "$@"
-
