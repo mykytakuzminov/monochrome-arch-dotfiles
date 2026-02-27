@@ -90,8 +90,41 @@ link_config() {
   log "Linking .config directory..."
   for item in "$CONFIG_SOURCE"/*; do
     name="$(basename "$item")"
+
+    if [[ "$name" == "firefox" ]]; then
+      continue 
+    fi
+
     create_symlink "$item" "$CONFIG_TARGET/$name"
   done
+}
+
+### ==========================================
+### LINK FIREFOX PROFILE
+### ==========================================
+
+link_firefox() {
+  log "Configuring Firefox..."
+  local firefox_base="$HOME/.config/mozilla/firefox"
+  
+  local profile_dir
+  profile_dir=$(find "$firefox_base" -maxdepth 1 -name "*.default-release" -type d | head -n 1)
+
+  if [[ -z "$profile_dir" ]]; then
+    warn "Firefox profile (*.default-release) not found. Skip linking."
+    return
+  fi
+
+  local source_dir="$CONFIG_SOURCE/firefox"
+
+  if [[ -d "$source_dir" ]]; then
+    for item in "$source_dir"/*; do
+      local name="$(basename "$item")"
+      create_symlink "$item" "$profile_dir/$name"
+    done
+  else
+    warn "Firefox source directory not found at $source_dir"
+  fi
 }
 
 ### ==========================================
@@ -133,6 +166,7 @@ main() {
   create_user_dirs
   link_config
   link_home
+  link_firefox
   link_wallpapers
   log "All done."
 }
