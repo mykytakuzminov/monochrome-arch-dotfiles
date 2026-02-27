@@ -1,0 +1,22 @@
+[git_status]
+style = "fg:#fd1b7c"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[lua]
+style = "bold white"
+symbol = "  "
+disabled = false
+format = "[$symbol($version )]($style)"
+
+[python]
+style = "bold white"
+symbol = "  "
+disabled = false
+format = "[$symbol($version )]($style)"
+
+[cpp]
+style = "bold white"
+symbol = "  "
+disabled = false
+format = "[$symbol($version )]($style)"
+

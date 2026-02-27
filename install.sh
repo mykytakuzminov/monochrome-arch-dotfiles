@@ -88,14 +88,23 @@ create_symlink() {
 
 link_config() {
   log "Linking .config directory..."
+  
   for item in "$CONFIG_SOURCE"/*; do
     name="$(basename "$item")"
 
     if [[ "$name" == "firefox" ]]; then
       continue 
-    fi
+    
+    elif [[ "$name" == "starship" ]]; then
+      if [[ -f "$item/starship.toml" ]]; then
+        create_symlink "$item/starship.toml" "$CONFIG_TARGET/starship.toml"
+      else
+        log "Warning: starship.toml not found in $item"
+      fi
 
-    create_symlink "$item" "$CONFIG_TARGET/$name"
+    else
+      create_symlink "$item" "$CONFIG_TARGET/$name"
+    fi
   done
 }
 
