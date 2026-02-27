@@ -1,0 +1,4 @@
+{
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
+  "monoglow.nvim": { "branch": "main", "commit": "aef0e6677561cdeb7d6b81301544be5b9554afe9" }
+}
