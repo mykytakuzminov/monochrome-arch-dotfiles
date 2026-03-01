@@ -1,14 +1,27 @@
-width=700
-height=375
-location=center
-show=drun
-prompt=Search...
-filter_rate=100
-allow_markup=true
-no_actions=true
-halign=fill
-orientation=vertical
-content_halign=fill
-insensivity=true
-allow_images=true
-image_size=24
+# ==================================================
+# Wofi Configuration
+# File: config
+# Purpose: Define launcher size, position, behavior, and appearance
+# ==================================================
+
+# ------------------ Window Size & Position ----------------
+width = 700                   # Width of the Wofi window
+height = 375                  # Height of the Wofi window
+location = center              # Screen location (center)
+
+# ------------------ Behavior & Mode ----------------
+show = drun                    # Default mode to show applications
+prompt = Search...             # Prompt text
+filter_rate = 100              # Filter update rate (ms)
+allow_markup = true            # Allow Pango markup in entries
+no_actions = true              # Disable custom actions
+insensivity = true             # Case-insensitive matching
+
+# ------------------ Layout ----------------
+halign = fill                  # Horizontal alignment of content
+orientation = vertical         # List orientation
+content_halign = fill          # Content alignment within window
+
+# ------------------ Images ----------------
+allow_images = true            # Enable icons/images
+image_size = 24                # Icon size in pixels

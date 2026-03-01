@@ -1,16 +1,25 @@
+/* ==================================================
+ * Wofi CSS Styling
+ * File: style.css
+ * Purpose: Define fonts, colors, spacing, and element styles for Wofi
+ * ================================================== */
+
+/* ------------------ Global Styles ---------------- */
 * {
-  font-family: "UbuntuMono Nerd Font";
-  font-size: 18px;
+  font-family: "UbuntuMono Nerd Font";      /* Default font for all elements */
+  font-size: 18px;                          /* Default font size */
 }
 
+/* ------------------ Window Styles ---------------- */
 window {
-  margin: 20px;
-  border: 2px solid #444444;
-  border-radius: 16px;
-  background-color: rgba(0, 0, 0, 0.95);
-  color: #E0E0E0
+  margin: 20px;                             /* Margin around the window */
+  border: 2px solid #444444;                /* Window border */
+  border-radius: 16px;                      /* Rounded corners */
+  background-color: rgba(0, 0, 0, 0.95);    /* Window background */
+  color: #E0E0E0;                           /* Default text color */
 }
 
+/* ------------------ Input Field ---------------- */
 #input {
   margin: 5px;
   border: none;
@@ -20,9 +29,10 @@ window {
 }
 
 #input:focus {
-  box-shadow: none;
+  box-shadow: none;                         /* Remove focus shadow */
 }
 
+/* ------------------ Inner & Outer Boxes ---------------- */
 #inner-box {
   margin: 5px;
   border: none;
@@ -34,36 +44,38 @@ window {
   border: none;
 }
 
+/* ------------------ Entry Field ---------------- */
 #entry {
   border-radius: 8px;
   color: #E0E0E0;
 }
 
 #entry:focus {
-  outline: none;
+  outline: none;                            /* Remove focus outline */
 }
 
 #entry:selected {
-  background-color: #1A1A1A;
+  background-color: #1A1A1A;                /* Selected entry background */
 }
 
+/* ------------------ Text ---------------- */
 #text {
   color: #E0E0E0;
   margin: 5px;
-  padding-left: 5px; 
+  padding-left: 5px;
   border: none;
 }
 
 #text:selected {
   color: #E0E0E0;
-  font-weight: bold;
+  font-weight: bold;                        /* Highlight selected text */
 }
 
+/* ------------------ Scrollbar ---------------- */
 scrollbar {
   background-color: transparent;
   background-image: none;
   border: none;
-  ox-shadow: none;
   min-width: 0;
   width: 0;
 }
@@ -72,7 +84,6 @@ scrollbar slider {
   background-color: transparent;
   background-image: none;
   border: none;
-  ox-shadow: none;
   min-width: 0;
   min-height: 0;
   width: 0;
