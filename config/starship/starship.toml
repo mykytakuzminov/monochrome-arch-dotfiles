@@ -1,23 +1,32 @@
+# ==================================================
+# Starship Prompt Configuration
+# File: starship.toml
+# Purpose: Configure prompt symbols, styles, and formats for packages and languages
+# ==================================================
+
+# ------------------ Package Module ----------------
 [package]
 symbol = " "
 format = "[$symbol](bold white) [$version](bold white) "
 disabled = false
 
+# ------------------ Lua Module ----------------
 [lua]
 style = "bold white"
 symbol = "  "
-disabled = false
 format = "[$symbol($version )]($style)"
+disabled = false
 
+# ------------------ Python Module ----------------
 [python]
 style = "bold white"
 symbol = "  "
-disabled = false
 format = "[$symbol($version )]($style)"
+disabled = false
 
+# ------------------ C++ Module ----------------
 [cpp]
 style = "bold white"
 symbol = "  "
-disabled = false
 format = "[$symbol($version )]($style)"
-
+disabled = false
