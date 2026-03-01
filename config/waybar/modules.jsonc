@@ -1,26 +1,36 @@
+// ==================================================
+// Waybar Modules Configuration
+// File: modules.jsonc
+// Purpose: Define the configuration of individual modules for Waybar
+// ==================================================
+
 {
+  // ------------------ Workspaces Module ----------------
   "hyprland/workspaces": {
-    "format": "{name}",
+    "format": "{name}",                     // Display workspace name
     "persistent-workspaces": {
-      "*": 5
+      "*": 5                                // Always show 5 workspaces
     }
   },
 
+  // ------------------ Clock Module ----------------
   "clock": {
-    "format": "{:%A %H:%M}",
-    "tooltip": false
+    "format": "{:%A %H:%M}",                // Format date and time
+    "tooltip": false                        // Disable tooltip
   },
 
+  // ------------------ Pulseaudio Module ----------------
   "pulseaudio": {
-    "format": " ",
-    "format-muted": " ",
-    "tooltip": false
+    "format": " ",                         // Icon for audio
+    "format-muted": " ",                   // Icon when muted
+    "tooltip": false                        // Disable tooltip
   },
 
+  // ------------------ Network Module ----------------
   "network": {
-    "format-wifi": " ",
-    "format-ethernet": " ",
-    "format-disconnected": "  ",
-    "tooltip": false
+    "format-wifi": " ",                    // Icon for Wi-Fi
+    "format-ethernet": " ",                // Icon for Ethernet
+    "format-disconnected": "  ",            // Display when disconnected
+    "tooltip": false                        // Disable tooltip
   }
 }

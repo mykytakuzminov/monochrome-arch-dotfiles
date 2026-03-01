@@ -1,13 +1,22 @@
-{
-  "layer": "top",
-  "position": "top",
-  "height": 10,
+// ==================================================
+// Waybar Main Configuration
+// File: config.json
+// Purpose: Configure general panel settings and include modules
+// ==================================================
 
+{
+  // ------------------ Panel Layout ----------------
+  "layer": "top",                             // Place the bar on top
+  "position": "top",                          // Panel position
+  "height": 10,                               // Height in pixels
+
+  // ------------------ Include Modules ----------------
   "include": [
-    "~/.config/waybar/modules.jsonc"
+    "~/.config/waybar/modules.jsonc"          // External modules configuration
   ],
 
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": ["network", "pulseaudio"]
+  // ------------------ Module Placement ----------------
+  "modules-left": ["hyprland/workspaces"],    // Modules aligned to the left
+  "modules-center": ["clock"],                // Modules aligned to the center
+  "modules-right": ["network", "pulseaudio"]  // Modules aligned to the right
 }

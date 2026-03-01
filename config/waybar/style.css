@@ -1,58 +1,69 @@
+/* ==================================================
+ * Waybar CSS Styling
+ * File: style.css
+ * Purpose: Define fonts, colors, spacing, and module styles for Waybar
+ * ================================================== */
+
+/* ------------------ Global Styles ---------------- */
 * {
-  font-family: "UbuntuMono Nerd Font";
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  border-radius: 0px;
-  min-height: 0px;
-  margin-top: 3px;
+    font-family: "UbuntuMono Nerd Font";      /* Default font for all elements */
+    font-size: 17px;                          /* Default font size */
+    font-weight: bold;                        /* Default font weight */
+    border: none;                             /* Remove borders */
+    border-radius: 0px;                       /* No border radius */
+    min-height: 0px;                          /* Remove minimum height */
+    margin-top: 3px;                          /* Top margin */
 }
 
+/* ------------------ Window Styles ---------------- */
 window#waybar {
-  background-color: rgba(0, 0, 0, 0);
-  color: #E0E0E0;
+    background-color: rgba(0, 0, 0, 0);       /* Transparent background */
+    color: #E0E0E0;                           /* Default text color */
 }
 
 #waybar {
-  padding-top: 0px;
-  padding-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
+/* ------------------ Module Base Styles ---------------- */
 #clock,
 #network,
 #bluetooth,
 #pulseaudio {
-  min-width: 12px;
-  margin: 0 10px;
+    min-width: 12px;
+    margin: 0 10px;
 }
 
+/* ------------------ Workspaces Module ---------------- */
 #workspaces button {
-  all: initial;
-  padding: 0 10px;
-  margin: 0 3px;
-  min-width: 12px;
-  color: #404040;
-  transition: all 0.2s ease;
+    all: initial;                             /* Reset all inherited styles */
+    padding: 0 10px;
+    margin: 0 3px;
+    min-width: 12px;
+    color: #404040;
+    transition: all 0.2s ease;                /* Smooth color transition */
 }
 
 #workspaces button.active {
-  color: #000000;
-  font-weight: bold;
+    color: #000000;                           /* Active workspace color */
+    font-weight: bold;
 }
 
 #workspaces button.visible {
-  color: #FEFEFE;
+    color: #FEFEFE;                           /* Visible workspace color */
 }
 
+/* ------------------ Module Positioning ---------------- */
 .modules-left {
-  margin-left: 8px;
+    margin-left: 8px;
 }
 
 .modules-right {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
+/* ------------------ Tooltip Styles ---------------- */
 .tooltip {
-  padding: 2px;
+    padding: 2px;
 }
-
