@@ -13,6 +13,13 @@ return {
       local function apply_overrides()
         vim.api.nvim_set_hl(0, "Boolean", { fg = "#FFFFFF" })
         vim.api.nvim_set_hl(0, "@boolean", { fg = "#FFFFFF" })
+
+        vim.api.nvim_set_hl(0, "MsgArea",    { fg = "#E0E0E0", bg = "none" })
+        vim.api.nvim_set_hl(0, "MoreMsg",    { fg = "#FFFFFF", bold = true })
+        vim.api.nvim_set_hl(0, "Question",   { fg = "#D0D0D0", bold = true })
+        vim.api.nvim_set_hl(0, "WarningMsg", { fg = "#C0C0C0", bold = true })
+        vim.api.nvim_set_hl(0, "ErrorMsg",   { fg = "#FFFFFF", bold = true })
+        vim.api.nvim_set_hl(0, "ModeMsg",    { fg = "#B0B0B0", bold = true })
       end
 
       local function set_transparent()
