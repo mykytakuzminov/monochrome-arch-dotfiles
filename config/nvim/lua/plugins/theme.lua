@@ -20,6 +20,14 @@ return {
         vim.api.nvim_set_hl(0, "WarningMsg", { fg = "#C0C0C0", bold = true })
         vim.api.nvim_set_hl(0, "ErrorMsg",   { fg = "#FFFFFF", bold = true })
         vim.api.nvim_set_hl(0, "ModeMsg",    { fg = "#B0B0B0", bold = true })
+
+        vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#FFFFFF', bold = true })
+        vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { fg = '#FFFFFF', bold = true })
+        vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { fg = '#FFFFFF', bold = true })
+        vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { fg = '#FFFFFF', bold = true })
+
+        vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = '#FFFFFF', bold = true })
+        vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { fg = '#FFFFFF', bold = true })
       end
 
       local function set_transparent()
