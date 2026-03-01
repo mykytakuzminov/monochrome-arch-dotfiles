@@ -1,12 +1,19 @@
+-- ==================================================
+-- EFM LSP Configuration
+-- File: efm.lua
+-- Purpose: Setup efm-langserver with linters and formatters
+-- ==================================================
+
 return function(capabilities)
-	local luacheck = require("efmls-configs.linters.luacheck") -- lua linter
-	local stylua = require("efmls-configs.formatters.stylua") -- lua formatter
-	local flake8 = require("efmls-configs.linters.flake8") -- python linter
-	local black = require("efmls-configs.formatters.black") -- python formatter
-	local shellcheck = require("efmls-configs.linters.shellcheck") -- bash linter
-	local shfmt = require("efmls-configs.formatters.shfmt") -- bash formatter
-	local cpplint = require("efmls-configs.linters.cpplint") -- c/cpp linter
-	local clangformat = require("efmls-configs.formatters.clang_format") -- c/cpp formatter
+  -- Import linters and formatters
+	local luacheck = require("efmls-configs.linters.luacheck")
+	local stylua = require("efmls-configs.formatters.stylua")
+	local flake8 = require("efmls-configs.linters.flake8")
+	local black = require("efmls-configs.formatters.black")
+	local shellcheck = require("efmls-configs.linters.shellcheck")
+	local shfmt = require("efmls-configs.formatters.shfmt")
+	local cpplint = require("efmls-configs.linters.cpplint")
+	local clangformat = require("efmls-configs.formatters.clang_format")
 
 	vim.lsp.config("efm", {
 		capabilities = capabilities,

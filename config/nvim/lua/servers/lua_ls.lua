@@ -1,3 +1,9 @@
+-- ==================================================
+-- Lua LSP Server Configuration
+-- File: servers/lua_ls.lua
+-- Purpose: Configure lua_ls with capabilities and workspace settings
+-- ==================================================
+
 return function(capabilities)
 	vim.lsp.config('lua_ls', {
 		capabilities = capabilities,

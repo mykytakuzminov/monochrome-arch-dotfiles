@@ -1,6 +1,16 @@
+-- ==================================================
+-- Neovim Lualine Plugin Configuration
+-- File: lualine.lua
+-- Purpose: Configure lualine.nvim with a monochrome theme
+-- ==================================================
+
 return {
   "nvim-lualine/lualine.nvim",
+
+  -- ------------------ Dependencies ----------------
   dependencies = { "nvim-tree/nvim-web-devicons" },
+
+  -- ------------------ Configuration ----------------
   config = function()
     local accent = "#FFFFFF"
     local white = "#FFFFFF"

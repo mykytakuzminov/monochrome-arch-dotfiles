@@ -1,4 +1,14 @@
+-- ==================================================
+-- Neovim Lazy.nvim Plugin Loader
+-- File: lazy.lua
+-- Purpose: Bootstrap and configure lazy.nvim plugin manager
+--          Load core configuration and plugins
+-- ==================================================
+
+-- ------------------ Bootstrap lazy.nvim ----------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- Clone lazy.nvim if it does not exist
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
@@ -12,20 +22,19 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
+
+-- Prepend lazy.nvim to runtime path
 vim.opt.rtp:prepend(lazypath)
 
+-- ------------------ Load Core Configuration ----------------
 require("config.globals")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
+-- ------------------ Setup Lazy.nvim ----------------
 require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-  },
+  spec = { { import = "plugins" }, },
   install = { colorscheme = { "habamax" } },
   checker = { enabled = true },
 })

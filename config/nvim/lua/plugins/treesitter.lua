@@ -1,12 +1,25 @@
+-- ==================================================
+-- Neovim Treesitter Plugin Configuration
+-- File: nvim-treesitter.lua
+-- Purpose: Configure nvim-treesitter plugin, ensure parsers
+--          are installed, and set up auto-start for supported filetypes
+-- ==================================================
+
 return {
 	"nvim-treesitter/nvim-treesitter",
 	branch = "main",
 	build = ":TSUpdate",
 	event = { "BufReadPost", "BufNewFile" },
 	lazy = false,
+
+  -- ------------------ Plugin Configuration ----------------
 	config = function()
 		local treesitter = require("nvim-treesitter")
+
+    -- Basic setup
 		treesitter.setup({})
+
+    -- ------------------ Ensure Installed Parsers ----------------
 		local ensure_installed = {
 			"bash",
 			"c",
@@ -36,6 +49,7 @@ return {
 			treesitter.install(parsers_to_install)
 		end
 
+    -- ------------------ Auto-start Treesitter on FileType ----------------
 		local group = vim.api.nvim_create_augroup("TreeSitterConfig", { clear = true })
 		vim.api.nvim_create_autocmd("FileType", {
 			group = group,

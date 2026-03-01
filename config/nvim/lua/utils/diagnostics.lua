@@ -1,12 +1,20 @@
+-- ==================================================
+-- Neovim Diagnostics Configuration
+-- File: diagnostics.lua
+-- Purpose: Setup diagnostic signs and display options
+-- ==================================================
+
 local M = {}
 
+-- ------------------ Define Diagnostic Signs ----------------
 local diagnostic_signs = {
 	Error = "󰅚 ",
 	Warn = "󰀪 ",
-	Hint = "󰌵 ",
 	Info = "󰋽 ",
+	Hint = "󰌵 ",
 }
 
+-- ------------------ Setup Diagnostics ----------------
 M.setup = function()
 	vim.diagnostic.config({
 		signs = {

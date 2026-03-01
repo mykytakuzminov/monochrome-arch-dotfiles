@@ -1,5 +1,13 @@
+-- ==================================================
+-- Neovim Icons Configuration
+-- File: icons.lua
+-- Purpose: Setup nvim-web-devicons with monochrome style
+-- ==================================================
+
 return {
   "nvim-tree/nvim-web-devicons",
+
+  -- ------------------ Configuration ----------------
   config = function()
     require("nvim-web-devicons").setup({
       color_icons = true,

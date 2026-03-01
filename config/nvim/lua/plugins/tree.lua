@@ -1,8 +1,19 @@
+-- ==================================================
+-- Neovim Nvim-Tree Plugin Configuration
+-- File: nvim-tree.lua
+-- Purpose: Configure nvim-tree.nvim, keybindings, view options,
+--          and apply monochrome colors to icons and folders
+-- ==================================================
+
 return {
   "nvim-tree/nvim-tree.lua",
+
+  -- ------------------ Keybindings ----------------
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
   },
+
+  -- ------------------ Plugin Configuration ----------------
   config = function()
     require("nvim-tree").setup({
       view = {
@@ -32,7 +43,8 @@ return {
         vim.keymap.set('n', '<Right>', '', opts('Disabled'))
       end,
     })
-
+    
+    -- ------------------ Monochrome Theme ----------------
     local function set_monochrome()
       local folder_color = "#D0D0D0"
       local file_color   = "#808080"
@@ -49,11 +61,13 @@ return {
         vim.api.nvim_set_hl(0, "DevIcon" .. icon.name, { fg = icon_color })
       end
     end
-
+    
+    -- Apply monochrome theme on colorscheme change
     vim.api.nvim_create_autocmd("ColorScheme", {
       callback = set_monochrome,
     })
-
+    
+    -- Initial monochrome setup
     set_monochrome()
   end,
 }

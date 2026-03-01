@@ -1,5 +1,13 @@
+-- ==================================================
+-- Neovim Completion Configuration
+-- File: cmd.lua
+-- Purpose: Setup nvim-cmp with LuaSnip and LSP integration
+-- ==================================================
+
 return {
 	"hrsh7th/nvim-cmp",
+
+  -- ------------------ Dependencies ----------------
 	dependencies = {
 		"onsails/lspkind.nvim",
 		"saadparwaiz1/cmp_luasnip",
@@ -14,6 +22,8 @@ return {
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
 	},
+
+  -- ------------------ Configuration ----------------
 	config = function()
 		local lspkind = require("lspkind")
 		local cmp = require("cmp")

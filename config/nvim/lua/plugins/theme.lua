@@ -1,8 +1,17 @@
+-- ==================================================
+-- Neovim Monoglow Theme Configuration
+-- File: theme.lua
+-- Purpose: Setup monoglow.nvim theme, apply custom
+--          highlights, and enforce transparent backgrounds
+-- ==================================================
+
 return {
   {
     "wnkz/monoglow.nvim",
     lazy = false,
     priority = 1000,
+
+    -- ------------------ Plugin Configuration ----------------
     config = function()
       require("monoglow").setup({
         on_colors = function(colors)
@@ -10,10 +19,13 @@ return {
         end
       })
 
+      -- ------------------ Custom Highlight Overrides ----------------
       local function apply_overrides()
+        -- Boolean highlighting
         vim.api.nvim_set_hl(0, "Boolean", { fg = "#FFFFFF" })
         vim.api.nvim_set_hl(0, "@boolean", { fg = "#FFFFFF" })
 
+        -- Messages
         vim.api.nvim_set_hl(0, "MsgArea",    { fg = "#E0E0E0", bg = "none" })
         vim.api.nvim_set_hl(0, "MoreMsg",    { fg = "#FFFFFF", bold = true })
         vim.api.nvim_set_hl(0, "Question",   { fg = "#D0D0D0", bold = true })
@@ -21,15 +33,18 @@ return {
         vim.api.nvim_set_hl(0, "ErrorMsg",   { fg = "#FFFFFF", bold = true })
         vim.api.nvim_set_hl(0, "ModeMsg",    { fg = "#B0B0B0", bold = true })
 
+        -- Diagnostics
         vim.api.nvim_set_hl(0, 'DiagnosticSignError', { fg = '#FFFFFF', bold = true })
         vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { fg = '#FFFFFF', bold = true })
         vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { fg = '#FFFFFF', bold = true })
         vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { fg = '#FFFFFF', bold = true })
 
+        -- Completion matches
         vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { fg = '#FFFFFF', bold = true })
         vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { fg = '#FFFFFF', bold = true })
       end
 
+      -- ------------------ Transparent Backgrounds ----------------
       local function set_transparent()
         local groups = {
           "Normal", "NormalNC", "EndOfBuffer", "NormalFloat",
@@ -42,11 +57,12 @@ return {
         vim.api.nvim_set_hl(0, "TabLineFill", { bg = "none", fg = "#767676" })
       end
 
+      -- ------------------ Apply Theme ----------------
       vim.cmd.colorscheme("monoglow")
-
       apply_overrides()
       set_transparent()
 
+      -- Reapply overrides when colorscheme changes
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "monoglow",
         callback = function()
